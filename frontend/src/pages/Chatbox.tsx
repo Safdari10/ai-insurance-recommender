@@ -4,14 +4,22 @@ import MessageInput from "../components/MessageInput";
 import { sendMessageToAI } from "../services/ChatService";
 
 const ChatBox: React.FC = () => {
-  const [chatHistory, setChatHistory] = useState<{ role: string; text: string; timestamp: string }[]>([]);
+  const [chatHistory, setChatHistory] = useState<
+    { role: string; text: string; timestamp: string }[]
+  >([]);
   const [isChatStarted, setIsChatStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleStart = async () => {
     try {
-      const introMessage = await sendMessageToAI("Start Conversation", []); 
-      setChatHistory([{ role: "ai", text: introMessage, timestamp: new Date().toLocaleTimeString() }]);
+      const introMessage = await sendMessageToAI("Start Conversation", []);
+      setChatHistory([
+        {
+          role: "ai",
+          text: introMessage,
+          timestamp: new Date().toLocaleTimeString(),
+        },
+      ]);
       setIsChatStarted(true);
     } catch (error) {
       console.error("Error starting chat:", error);
@@ -19,13 +27,21 @@ const ChatBox: React.FC = () => {
   };
 
   const handleSend = async (message: string) => {
-    const newUserMessage = { role: "user", text: message, timestamp: new Date().toLocaleTimeString() };
+    const newUserMessage = {
+      role: "user",
+      text: message,
+      timestamp: new Date().toLocaleTimeString(),
+    };
     setChatHistory((prev) => [...prev, newUserMessage]);
 
     setIsLoading(true);
     try {
       const aiResponse = await sendMessageToAI(message, chatHistory);
-      const newAIMessage = { role: "ai", text: aiResponse, timestamp: new Date().toLocaleTimeString() };
+      const newAIMessage = {
+        role: "ai",
+        text: aiResponse,
+        timestamp: new Date().toLocaleTimeString(),
+      };
 
       setChatHistory((prev) => [...prev, newAIMessage]);
     } catch (error) {
@@ -36,8 +52,8 @@ const ChatBox: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-r from-purple-50 to-pink-100">
-      <div className="flex justify-center items-center h-24 bg-gradient-to-r from-purple-500 to-pink-700 text-white shadow-lg rounded-t-lg">
+    <div className="flex flex-col h-screen bg-linear-to-r from-purple-50 to-pink-100">
+      <div className="flex justify-center items-center h-24 bg-linear-to-r from-purple-500 to-pink-700 text-white shadow-lg rounded-t-lg">
         <div className="flex flex-col items-center space-y-2">
           <h1 className="text-5xl font-bold">Chatbot</h1>
           <p className="text-lg text-gray-200">Your friendly AI assistant</p>
@@ -47,7 +63,11 @@ const ChatBox: React.FC = () => {
         {isChatStarted ? (
           <>
             <ChatDisplay history={chatHistory} />
-            {isLoading && <div className="text-xl text-center text-gray-500 mt-4">AI is typing...</div>}
+            {isLoading && (
+              <div className="text-xl text-center text-gray-500 mt-4">
+                AI is typing...
+              </div>
+            )}
             <MessageInput onSend={handleSend} />
           </>
         ) : (
