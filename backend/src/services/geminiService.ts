@@ -14,7 +14,6 @@ export const sendMessageToAI = async (userMessage: string) => {
 
     return aiMessage;
   } catch (error) {
-    console.error("Error communicating with Gemini:", error);
-    throw new Error("Failed to get a response from the AI.");
+    throw new Error("Failed to get a response from the AI.", { cause: error });
   }
 };
