@@ -1,24 +1,20 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
+import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
-const apiKey = process.env.API_KEY;
+const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) {
-  throw new Error("API_KEY is not defined in the environment variables.");
+  throw new Error(
+    "GEMINI_API_KEY is not defined in the environment variables.",
+  );
 }
 
-const genAI = new GoogleGenerativeAI(apiKey);
+const ai = new GoogleGenAI({ apiKey });
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  generationConfig: {
-    maxOutputTokens: 500,
-    temperature: 0.7,
-  },
-});
-
-export const chatSession = model.startChat({
+// Create a chat session with initial history using the new SDK
+export const chatSession = ai.chats.create({
+  model: "gemini-3-flash", // Use latest available model
   history: [
     {
       role: "user",
@@ -52,4 +48,8 @@ export const chatSession = model.startChat({
       ],
     },
   ],
+  config: {
+    maxOutputTokens: 500,
+    temperature: 0.7,
+  },
 });
