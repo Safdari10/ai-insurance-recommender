@@ -14,7 +14,7 @@ const ai = new GoogleGenAI({ apiKey });
 
 // Create a chat session with initial history using the new SDK
 export const chatSession = ai.chats.create({
-  model: "gemini-3-flash", // Use latest available model
+  model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
   history: [
     {
       role: "user",
