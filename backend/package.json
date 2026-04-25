@@ -7,7 +7,7 @@
     "test": "jest --watch --coverage",
     "gem": "ts-node ./src/services/geminiService.ts",
     "start": "node dist/app.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node ./src/app.ts",
+    "dev": "nodemon --legacy-watch --watch src/**/*.ts --exec ts-node ./src/app.ts",
     "build": "tsc"
   },
   "packageManager": "pnpm@9.15.0",
