@@ -7,25 +7,35 @@ interface ChatHistoryProps {
 
 const ChatDisplay: React.FC<ChatHistoryProps> = ({ history }) => {
   return (
-    <div className="flex flex-col p-6 space-y-6 overflow-y-auto h-[400px] bg-gradient-to-r from-purple-50 to-pink-100 rounded-lg shadow-inner border border-gray-300">
+    <div className="flex min-h-0 flex-1 flex-col space-y-4 overflow-y-auto rounded-lg border border-(--turner-border) bg-white p-5">
       {history.map((message, index) => (
         <div
           key={index}
-          className={`flex items-start space-x-4 p-4 rounded-lg max-w-2xl shadow-md transition-transform transform ${
+          className={`flex max-w-4xl items-start gap-4 rounded-md border p-4 ${
             message.role === "user"
-              ? "bg-purple-500 text-white self-end flex-row-reverse translate-x-2"
-              : "bg-white text-black self-start -translate-x-2"
+              ? "ml-auto flex-row-reverse border-transparent bg-(--turner-ink) text-white"
+              : "mr-auto border-(--turner-border) bg-[#f8fafc] text-(--turner-ink)"
           }`}
         >
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <FontAwesomeIcon
               icon={message.role === "user" ? faUser : faRobot}
-              className="w-12 h-12 rounded-full mx-2"
+              className={`h-8 w-8 rounded-full ${
+                message.role === "user"
+                  ? "text-(--turner-yellow)"
+                  : "text-(--turner-ink-soft)"
+              }`}
             />
           </div>
-          <div>
-            <div className="text-xl">{message.text}</div>
-            <div className={`text-md ${message.role === "user" ? "text-gray-200" : "text-gray-500"}`}>{message.timestamp}</div>
+          <div className="space-y-2">
+            <div className="text-[1.6rem] leading-relaxed">{message.text}</div>
+            <div
+              className={`text-[1.2rem] ${
+                message.role === "user" ? "text-gray-300" : "text-gray-500"
+              }`}
+            >
+              {message.timestamp}
+            </div>
           </div>
         </div>
       ))}
