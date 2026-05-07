@@ -1,4 +1,4 @@
-# AI Insurance Recommender - backend
+# AI Insurance Recommender - Backend
 
 ## Table of Contents
 
@@ -32,9 +32,13 @@
 4. Create a `.env` file in the backend directory and add the necessary environment variables:
 
    ```env
+   GEMINI_API_KEY=your_gemini_api_key
+   GEMINI_MODEL=gemini-2.5-flash
    PORT=3001
-   DATABASE_URL=your_database_url
+   HOST=localhost
    ```
+
+   `GEMINI_MODEL`, `PORT`, and `HOST` are optional. `GEMINI_API_KEY` is required.
 
 5. Run the development server:
 
@@ -50,6 +54,12 @@ To run the tests, use the following command:
 
 ```sh
 pnpm test
+```
+
+The default test script runs Jest in watch mode. For a one-off run, use:
+
+```sh
+pnpm exec jest --coverage --runInBand
 ```
 
 ## Building for Production
@@ -83,9 +93,10 @@ The backend service should now be running on `http://localhost:3001`.
 
 - **Node.js**: JavaScript runtime
 - **Express.js**: Web framework for Node.js
+- **Gemini API**: AI recommendation responses
 - **pnpm**: Fast, disk space efficient package manager
 - **Docker**: Containerization platform
 
 ## License
 
-This app is licensed under the MIT License.
+No repository license file is currently included.
