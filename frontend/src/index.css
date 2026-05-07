@@ -12,6 +12,19 @@ html {
   font-size: 62.5%;
 }
 
+:root {
+  --turner-yellow: #ffcf00;
+  --turner-yellow-strong: #f2bc00;
+  --turner-ink: #111827;
+  --turner-ink-soft: #273244;
+  --turner-surface: #f5f7fa;
+  --turner-border: #d9dee6;
+}
+
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Aptos", "Segoe UI", "Trebuchet MS", sans-serif;
+  color: var(--turner-ink);
+  background:
+    radial-gradient(circle at top right, #fff8d4 0%, transparent 28%),
+    linear-gradient(160deg, #f8fafc 0%, var(--turner-surface) 100%);
 }
