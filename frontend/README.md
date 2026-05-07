@@ -1,80 +1,45 @@
-# AI Insurance Recommender - frontend
+# AI Insurance Recommender - Frontend
+
+The frontend is a React and TypeScript chat interface for the Turners-inspired car insurance recommendation flow.
 
 ## Getting Started
 
-To get started with the app, follow these steps:
-
-1. **Clone the repository:**
-
-```sh
+```bash
 git clone https://github.com/Safdari10/ai-insurance-recommender.git
 cd ai-insurance-recommender/frontend
-```
-
-2. **Install dependencies:**
-
-```sh
 pnpm install
-```
-
-3. **Run the development server:**
-
-```sh
 pnpm run dev
 ```
 
-This will start the Vite development server and you can view the app at `http://localhost:3000`.
+Vite will print the local URL in the terminal. The default is usually `http://localhost:5173`.
+
+The backend should also be running at `http://localhost:3001` so chat requests can reach the API.
 
 ## Tech Stack
 
-- **React**: Frontend library
-- **Vite**: Build tool
-- **Tailwind CSS**: Styling
-- **Redux**: State management
-- **Jest, React Testing Library**: Testing
-- **ESLint**: Linting
+- React 19
+- TypeScript
+- Vite 8
+- Tailwind CSS v4 using `@tailwindcss/vite`
+- Axios
+- Font Awesome React icons
+- Jest and React Testing Library
+- ESLint
 
-## Building for Production
+Tailwind CSS v4 is integrated through the Vite plugin, so this app does not require a `tailwind.config.js`, PostCSS config, or direct Autoprefixer setup for the current styling approach.
 
-To build the app for production, run:
+## Scripts
 
-```sh
-pnpm run build
+```bash
+pnpm run dev      # Start the Vite dev server
+pnpm run build    # Create a production build in dist/
+pnpm run preview  # Preview the production build
+pnpm run lint     # Run ESLint
+pnpm test         # Run Jest in watch mode with coverage
 ```
 
-This will create an optimized build of the app in the `dist` directory.
+For a one-off test run in CI-style workflows:
 
-## Running Tests
-
-To run tests, use the following command:
-
-```sh
-pnpm test
+```bash
+pnpm exec jest --coverage --runInBand
 ```
-
-This will execute all the test cases defined in the app.
-
-## Linting
-
-To lint the codebase, run:
-
-```sh
-pnpm run lint
-```
-
-This will check the code for any linting errors based on the ESLint configuration.
-
-## Contributing
-
-If you would like to contribute to the app, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Open a pull request.
-
-## License
-
-This app is licensed under the MIT License. See the [LICENSE](../LICENSE) file for more information.
