@@ -1,79 +1,99 @@
 # AI Insurance Recommender
 
-AI Insurance Recommender is a full-stack application that uses generative AI to provide personalized insurance recommendations to clients. The system analyzes user input and preferences to suggest the most suitable insurance policies, streamlining the decision-making process for both clients and insurance providers.
+AI Insurance Recommender is a full-stack car insurance assistant built around a Turners-inspired consultation flow. The app asks users for vehicle, driving history, and cover preference details, then uses Gemini to provide a tailored insurance recommendation.
 
 ## Overview
 
-This app leverages modern AI models to:
+The project includes:
 
-- Analyze client needs and preferences
-- Generate tailored insurance policy recommendations
-- Provide an interactive chat interface for user engagement
-
-The app is built with a TypeScript/React frontend and a Node.js/Express backend, and supports containerized deployment with Docker.
+- A React, TypeScript, Vite, and Tailwind CSS v4 frontend
+- A Node.js and Express backend
+- Gemini-powered recommendation logic
+- Docker Compose files for containerized local runs
 
 ## App Structure
 
-```
+```text
 ai-insurance-recommender/
-   backend/    # Node.js/Express backend with AI logic
-   frontend/   # React/TypeScript frontend
-   docker-compose.yml
-   README.md
-   ...
+  backend/    # Express backend and Gemini chat service
+  frontend/   # React/Vite frontend chat experience
+  docker-compose.yml
+  README.md
 ```
+
+## Prerequisites
+
+- Node.js
+- pnpm via Corepack or a local pnpm install
+- A Gemini API key for backend responses
 
 ## Installation
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/Safdari10/ai-insurance-recommender.git
-   cd ai-insurance-recommender
-   ```
-2. Install dependencies for both backend and frontend using pnpm:
-   ```sh
-   cd backend
-   pnpm install
-   cd ../frontend
-   pnpm install
-   ```
+```bash
+git clone https://github.com/Safdari10/ai-insurance-recommender.git
+cd ai-insurance-recommender
 
-## Usage
+cd backend
+pnpm install
 
-### With pnpm (local development)
+cd ../frontend
+pnpm install
+```
 
-1. Start the backend server:
-   ```bash
-   cd backend
-   pnpm start
-   ```
-2. Start the frontend application:
-   ```bash
-   cd ../frontend
-   pnpm dev
-   ```
-3. Open your browser and navigate to the frontend at `http://localhost:5173` and the backend at `http://localhost:3001`.
+## Environment
 
-### With Docker
+Create `backend/.env`:
 
-You can also run the entire stack using Docker Compose:
+```env
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-2.5-flash
+PORT=3001
+HOST=localhost
+```
+
+`GEMINI_MODEL`, `PORT`, and `HOST` are optional. The backend defaults to `gemini-2.5-flash`, port `3001`, and `localhost`.
+
+## Local Development
+
+Start the backend:
+
+```bash
+cd backend
+pnpm run dev
+```
+
+Start the frontend in another terminal:
+
+```bash
+cd frontend
+pnpm run dev
+```
+
+The frontend is served by Vite, usually at `http://localhost:5173`. The backend runs at `http://localhost:3001` unless configured otherwise.
+
+## Verification
+
+Frontend:
+
+```bash
+cd frontend
+pnpm run lint
+pnpm run build
+pnpm exec jest --coverage --runInBand
+```
+
+Backend:
+
+```bash
+cd backend
+pnpm run build
+pnpm exec jest --coverage --runInBand
+```
+
+## Docker
 
 ```bash
 docker-compose up --build
 ```
 
-This will start both the backend and frontend containers. Adjust ports as needed in the `docker-compose.yml` files.
-
-For more details, see the README files in the `backend` and `frontend` directories.
-
-## Contributing
-
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for more details.
-
-## License
-
-This app is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any questions or suggestions, please create a pull request or open an issue on GitHub.
+For service-specific details, see the README files in `backend` and `frontend`.
