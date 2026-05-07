@@ -8,7 +8,17 @@ jest.mock('../services/geminiService');
 const app = express();
 app.use(express.json());
 app.post('/chat', getChat);
-const testCases = [
+
+type ChatRouteTestCase = {
+    description: string;
+    input: { message?: string };
+    expectedStatus: number;
+    expectedResponse: Record<string, string>;
+    mockResponse?: string;
+    mockError?: Error;
+};
+
+const testCases: ChatRouteTestCase[] = [
     {
         description: 'should return AI response for valid user message',
         input: { message: 'Hi' },
@@ -20,20 +30,20 @@ const testCases = [
         description: 'should return 400 if message is not provided',
         input: {},
         expectedStatus: 400,
-        expectedResponse: 'Message is required.'
+        expectedResponse: { error: 'Message is required.' }
     },
     {
         description: 'should return 500 if there is an error',
         input: { message: 'Hi' },
         mockError: new Error('Test error'),
         expectedStatus: 500,
-        expectedResponse: 'An error occurred while getting the chat response.'
+        expectedResponse: { error: 'An error occurred while getting the chat response.' }
     },
     {
         description: 'should return 400 for empty message',
         input: { message: '' },
         expectedStatus: 400,
-        expectedResponse: 'Message is required.'
+        expectedResponse: { error: 'Message is required.' }
     },
     {
         description: 'should return AI response for long message',
@@ -52,6 +62,10 @@ const testCases = [
 ];
 
 describe('Chat Controller', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     testCases.forEach(({ description, input, mockResponse, mockError, expectedStatus, expectedResponse }) => {
         it(description, async () => {
             if (mockResponse) {
@@ -66,11 +80,7 @@ describe('Chat Controller', () => {
                 .send(input);
 
             expect(response.status).toBe(expectedStatus);
-            if (typeof expectedResponse === 'string') {
-                expect(response.text).toBe(expectedResponse);
-            } else {
-                expect(response.body).toEqual(expectedResponse);
-            }
+            expect(response.body).toEqual(expectedResponse);
         });
     });
 });
